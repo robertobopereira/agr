@@ -1,0 +1,11 @@
+version: '3'
+services:
+  dns:
+    build: .
+    volumes:
+      - ./named.conf:/etc/bind/named.conf
+      - ./db.roberto.ic.ufmt.br:/etc/bind/zones/db.roberto.ic.ufmt.br
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    restart: always
