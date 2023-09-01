@@ -1,0 +1,10 @@
+version: '3'
+services:
+  ntp-server:
+    build: .
+    container_name: ntp-server
+    volumes:
+      - ./ntp.conf:/etc/ntp.conf
+    ports:
+      - "123:123/udp"
+    restart: always
