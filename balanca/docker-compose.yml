@@ -1,0 +1,31 @@
+version: "3"
+services:
+  app1:
+    build: ./app1
+    ports:
+      - "5001:5000"
+#    networks:
+#      - rede
+  app2:
+    build: ./app2
+    ports:
+      - "5002:5000"
+#    networks:
+#      - rede
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+#    networks:
+#      - rede
+    depends_on:
+      - app1
+      - app2
+
+#networks:
+#  rede:
+#    name: rede-beto
+#    external: true
+
+#  bridge:
+#    external: true

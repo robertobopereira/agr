@@ -1,0 +1,19 @@
+version: "3"
+services:
+  app1:
+    image: php:7.2-apache
+    volumes:
+     - ./app1/index.php:/var/www/html/index.php
+
+  app2:
+    image: php:7.2-apache
+    volumes:
+     - ./app2/index.php:/var/www/html/index.php
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - app1
+      - app2

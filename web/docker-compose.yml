@@ -1,0 +1,44 @@
+version: "3"
+services:
+  web:
+    build: ./web
+    volumes:
+     - ./ftp_data/aluno/:/var/www/html/
+    ports:
+     - "80:80"
+    depends_on:
+     - banco
+     - ftp
+
+  banco:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: usuario
+      MYSQL_USER: usuario
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - ./banco:/var/lib/mysql
+
+  ftp:
+    image: fauria/vsftpd
+    ports:
+      - "20:20"
+      - "21:21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - ./ftp_data:/home/vsftpd
+    environment:
+      - FTP_USER=aluno
+      - FTP_PASS=123456
+      - PASV_ADDRESS=192.168.18.218
+      - PASV_MIN_PORT=21100
+      - PASV_MAX_PORT=21110
+      - LOCAL_UMASK=777
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
