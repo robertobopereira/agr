@@ -1,0 +1,11 @@
+version: '3'
+services:
+  samba:
+    build: .
+    volumes:
+      - ./smb.conf:/etc/samba/smb.conf
+    ports:
+      - "137-138:137-138/udp"
+      - "139:139/tcp"
+      - "445:445/tcp"
+    restart: always
