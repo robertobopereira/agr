@@ -2,6 +2,7 @@ version: '3'
 services:
   samba:
     build: ./
+#    network_mode: host
     volumes:
       - ./smb.conf:/etc/samba/smb.conf
       - ./dados:/dados
