@@ -4,10 +4,15 @@ echo "Iniciando servicos"
 service smbd start
 service nmbd start
 
-echo "Adicionando usuario"
-#adduser aluno
-#passwd -d aluno
-#smbpasswd -a aluno -s 123456
+
+echo "Script senhas"
+while IFS=',' read -r a b; do
+ useradd -m "$a"
+ (echo "$b"; echo "$b") | smbpasswd -s -a "$a"
+done < dados.csv
+
+echo "Ajustando permissao dos diretórios"
+chmod 777 /dados -R
 
 # Pegando o IP e mostrando
 IP=$(hostname -I)

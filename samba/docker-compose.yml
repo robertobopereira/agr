@@ -1,9 +1,12 @@
 version: '3'
 services:
   samba:
-    build: .
+    build: ./
     volumes:
       - ./smb.conf:/etc/samba/smb.conf
+      - ./dados:/dados
+      - ./script.sh:/script.sh
+      - ./dados.csv:/dados.csv
     ports:
       - "137-138:137-138/udp"
       - "139:139/tcp"
