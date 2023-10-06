@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  owncloud:
+    image: owncloud/server:10.13
+    container_name: owncloud_server
+    restart: always
+    ports:
+      - 80:8080
+    depends_on:
+      - mariadb
+    environment:
+      - OWNCLOUD_DOMAIN=192.168.18.218
+      - OWNCLOUD_TRUSTED_DOMAINS=192.168.18.218,192.168.18.0,localhost
+      - OWNCLOUD_DB_TYPE=mysql
+      - OWNCLOUD_DB_NAME=owncloud
+      - OWNCLOUD_DB_USERNAME=owncloud
+      - OWNCLOUD_DB_PASSWORD=owncloud
+      - OWNCLOUD_DB_HOST=mariadb
+      - OWNCLOUD_ADMIN_USERNAME=admin
+      - OWNCLOUD_ADMIN_PASSWORD=123456
+      - OWNCLOUD_MYSQL_UTF8MB4=true
+    volumes:
+      - ./files:/mnt/data
+
+  mariadb:
+    image: mariadb:10.11
+    container_name: owncloud_mariadb
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=owncloud
+      - MYSQL_USER=owncloud
+      - MYSQL_PASSWORD=owncloud
+      - MYSQL_DATABASE=owncloud
+      - MARIADB_AUTO_UPGRADE=1
+    command: ["--max-allowed-packet=128M", "--innodb-log-file-size=64M"]
+    volumes:
+      - ./mysql:/var/lib/mysql
+

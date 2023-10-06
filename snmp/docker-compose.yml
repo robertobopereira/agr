@@ -60,6 +60,6 @@ services:
     ports:
       - '10050:10050'
     environment:
-      - ZBX_HOSTNAME=Zabbix server
+      - ZBX_HOSTNAME=Zabbix
       - ZBX_SERVER_HOST=zabbix-server
 
