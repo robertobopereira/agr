@@ -7,6 +7,9 @@ RUN ln -fs /usr/share/zoneinfo/America/Cuiaba /etc/localtime
 # Instale o servidor NTP (NTPd) da ISC
 RUN apt-get update && apt-get install -y ntp
 
+# Adicionar grupo NTP e usuário NTP
+RUN groupadd ntp && useradd -g ntp -m -s /bin/false ntp
+
 # Exponha a porta UDP 123 utilizada pelo NTP
 EXPOSE 123/udp
 

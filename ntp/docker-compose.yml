@@ -1,10 +1,15 @@
 version: '3'
 services:
   ntp-server:
-    build: .
+    build: .   # Compila o dockerfile
     container_name: ntp-server
+    privileged: true  # Permite o conteiner ter acesso ao host
+    devices: # Mapeando o relogio do computador
+      - "/dev/rtc:/dev/rtc"
     volumes:
       - ./ntp.conf:/etc/ntp.conf
+      - /etc/localtime:/etc/localtime:ro  # mapeia o localtime
+      - /etc/timezone:/etc/timezone:ro  # mapeia o fuso
     ports:
       - "123:123/udp"
     restart: always

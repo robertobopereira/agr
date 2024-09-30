@@ -2,8 +2,7 @@ version: '3'
 
 services:
   mysql:
-    image: mysql
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --skip-log-bin
+    image: mysql:5.7
     volumes:
       - './zabbix/mysql:/var/lib/data'
     environment:
@@ -13,7 +12,7 @@ services:
       - MYSQL_PASSWORD=123456
 
   zabbix-server:
-    image: zabbix/zabbix-server-mysql
+    image: zabbix/zabbix-server-mysql:ubuntu-5.0.1
     ports:
       - '10051:10051'
     volumes:
@@ -27,7 +26,7 @@ services:
       - mysql
 
   zabbix-frontend:
-    image: zabbix/zabbix-web-apache-mysql
+    image: zabbix/zabbix-web-apache-mysql:ubuntu-5.0.1
     restart: always
     ports:
       - '80:8080'
@@ -52,17 +51,15 @@ services:
       - zabbix-server
 
   zabbix-agent:
-    image: zabbix/zabbix-agent2
+    image: zabbix/zabbix-agent2:alpine-5.0.1
     user: root
     restart: always
     privileged: true
-    depends_on:
-      - zabbix-server
     volumes:
       - /var/run:/var/run
     ports:
       - '10050:10050'
     environment:
-      - ZBX_HOSTNAME=zabbix-server
+      - ZBX_HOSTNAME=Zabbix
       - ZBX_SERVER_HOST=zabbix-server
 
