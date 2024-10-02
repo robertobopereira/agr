@@ -23,7 +23,6 @@ services:
       - MYSQL_DATABASE=zabbix
       - MYSQL_USER=zabbix
       - MYSQL_PASSWORD=123456
-      - ZBX_NODEADDRESS=zabbix-server
     depends_on:
       - mysql
 
@@ -53,14 +52,10 @@ services:
       - zabbix-server
 
   zabbix-agent:
-    image: zabbix/zabbix-agent2
+    image: zabbix/zabbix-agent
     user: root
     restart: always
     privileged: true
-#    network_mode: "host"
-#    cap_add:
-#      - SYS_ADMIN
-#      - NET_ADMIN
     depends_on:
       - zabbix-server
     volumes:
