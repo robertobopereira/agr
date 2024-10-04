@@ -1,0 +1,17 @@
+# Use a imagem oficial do Python
+FROM python:3.9
+
+# Defina o diretório de trabalho
+WORKDIR /app
+
+# Copie o arquivo de dependências
+COPY ./app/requirements.txt /app/requirements.txt
+
+# Instale as dependências
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Copie o código da aplicação
+#COPY ./app /app
+
+# Comando para rodar a aplicação
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

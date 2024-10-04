@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    build: ./web
+    build: .
     volumes:
      - ./ftp_data/aluno/:/var/www/html/
     ports:
@@ -31,7 +31,7 @@ services:
     environment:
       - FTP_USER=aluno
       - FTP_PASS=123456
-      - PASV_ADDRESS=192.168.18.218
+      - PASV_ADDRESS=192.168.18.80
       - PASV_MIN_PORT=21100
       - PASV_MAX_PORT=21110
       - LOCAL_UMASK=777

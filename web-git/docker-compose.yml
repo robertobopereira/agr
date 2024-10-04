@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    expose:
+      - "80:80"
