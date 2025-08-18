@@ -1,0 +1,21 @@
+services:
+  proxy:
+    build: ./reverse-proxy
+    container_name: proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - cliente
+      - produto
+
+  cliente:
+    build: ./cliente
+    container_name: cliente
+    expose:
+      - "8000"
+
+  produto:
+    build: ./produto
+    container_name: produto
+    expose:
+      - "8000"
