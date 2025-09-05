@@ -1,0 +1,7 @@
+services:
+    speedtest:
+       image: openspeedtest/latest
+       restart: unless-stopped
+       ports:
+            - '3080:3000'
+            - '3443:3001'
